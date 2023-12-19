@@ -55,12 +55,12 @@ namespace ExampleGameMethods
     {
         static float Move(float height)
         {
-            //
+            //button press or text to move up random number of 10-20
         }
 
         static void PlayerName(string playerName = "Anonymous")
         {
-            //
+            //readline to get player name
         }
 
         static void RandomNumber(int min, int max)
@@ -70,11 +70,15 @@ namespace ExampleGameMethods
 
         static void CheckPipe()
         {
-            //
+            //check if player height is within pipe minimum and gap
         }
 
         static void Main(string[] args)
         {
+            float height = 15.00;
+            int score = 0;
+            string player = ""
+            int[] pipes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
         }
     }
