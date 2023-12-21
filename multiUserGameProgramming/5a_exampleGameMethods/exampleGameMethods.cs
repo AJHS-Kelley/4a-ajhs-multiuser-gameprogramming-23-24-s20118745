@@ -25,26 +25,6 @@ o The logic in your if / elif / else block should be correct.
 · Use at least one for loop to iterate through an array. [25 Points]
 · Frequent use of comments to explain variables and methods. [25 Points]
 
-
-
-flappy bird
-
-float height
-int score
-string player name
-array pipe heights
-pipes have a gap of 60, then 40, 20, 10
-jump += height
-fall -= height
-
-method jump/fall return height
-method randomize pipes height
-method take player name, default "Anonymous"
-method check if height matches pipe
-need variable for next pipe
-
-for loop show nearby pipes
-while loop hold game
 */
 
 
@@ -55,12 +35,15 @@ namespace ExampleGameMethods
     {
         static int Move(int height, int code)
         {
-            //button press or text to move up random number of 10-20
+            //uses "code" to pick which move to make
             if (code == 1) {
+                //jump
                 height += RandomInt(10,30);
             } else if (code == 0) {
+                //fall
                 height -= RandomInt(10,30);
             } else if (code == 2) {
+                //glide
                 height -= RandomInt(0, 15);
             }
 
@@ -77,6 +60,7 @@ namespace ExampleGameMethods
                 "'S' to Fall down a random number from 10 - 30\n"+
                 "'D' to Glide, falling by a random number from 0 - 15\n"+
                 "'Q' to Quit\n"+
+                "You'll get 3 turns to change your position\n"+
                 "If you get hit once, you lose!\n\n"
 
             );
@@ -84,7 +68,7 @@ namespace ExampleGameMethods
 
         static int RandomInt(int min = 0, int max = 30)
         {
-            //
+            //random number generator
             int randomNumber;
             Random rndNum = new Random();
             randomNumber = rndNum.Next(min, max);
@@ -115,35 +99,29 @@ namespace ExampleGameMethods
             bool win = true;
             int[] pipes = {0, RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70)};
 
-            // for (int i = 0; i < pipes.Length; i++) {
-            //     Console.WriteLine(pipes[i]);
-            // }
             Instructions();
             
             while (true) {
                 
+
                 if (turn == 0) {
-                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]+gap} to {pipes[score+1]}");
+                    //show next pipe gap every first turn
+                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]} to {pipes[score+1]+gap}");
                 } else if (turn == 3) {
                     win = CheckPipe(pipes,score,height,gap);
+                    //lose game if you don't make it through the pipe
                     if (win == false) {
                         Console.WriteLine($"Your final score is {score}");
                         break;
                     } else {
                         score++;
+                        Console.WriteLine(score);
                     }
                     turn = 0;
-                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]+gap} to {pipes[score+1]}");
+                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]} to {pipes[score+1]+gap}");
                 }
-
-                if (score > 10) {
-                    gap = 40;
-                } else if (score > 20) {
-                    gap = 20;
-                }
-
                 
-
+                //key presses
                 char key = Char.ToLower(Console.ReadKey(true).KeyChar);
                 if (key == 'w') {
                     height = Move(height, 1);
