@@ -1,4 +1,4 @@
-// 02_Collections, Alexander Jones, 11-08-2023 v0.0
+// Example Game Methods, Alexander Jones, 12-19-2023 v0.0
 using System;
 
 /*
@@ -53,32 +53,58 @@ namespace ExampleGameMethods
 {
     class ExampleGameMethods
     {
-        static float Move(float height)
+        static int Move(int height, int code)
         {
             //button press or text to move up random number of 10-20
+            if (code == 1) {
+                height += RandomInt(10,30);
+            } else if (code == 0) {
+                height -= RandomInt(10,30);
+            }
+
+            return height;
         }
 
-        static void PlayerName(string playerName = "Anonymous")
+        static void PlayerName()
         {
             //readline to get player name
         }
 
-        static void RandomNumber(int min, int max)
+        static int RandomInt(int min = 0, int max = 30)
         {
             //
-        } 
+            int randomNumber;
+            Random rndNum = new Random();
+            randomNumber = rndNum.Next(min, max);
+            Console.WriteLine(randomNumber);
 
-        static void CheckPipe()
+            return randomNumber;
+        }
+
+        static int CheckPipe(int[] pipes,int score)
         {
             //check if player height is within pipe minimum and gap
         }
 
         static void Main(string[] args)
         {
-            float height = 15.00;
+            int height = 15;
             int score = 0;
-            string player = ""
-            int[] pipes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+            string player = "";
+            int[] pipes = {0, RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70)};
+            Console.WriteLine(pipes);
+            while (true) {
+                char key = Char.ToLower(Console.ReadKey(true).KeyChar);
+                if (key == 'w') {
+                    height = Move(height, 1);
+                    Console.WriteLine(height);
+                } else if (key == 's') {
+                    height = Move(height, 0);
+                    Console.WriteLine(height);
+                } else if (key == 'q') {
+                    break;
+                }
+            }
 
         }
     }
