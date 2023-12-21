@@ -67,11 +67,19 @@ namespace ExampleGameMethods
             return height;
         }
 
-        static string PlayerName()
+        static void Instructions()
         {
-            Console.WriteLine("Enter your name\n");
-            string player = Console.ReadLine();
-            return player;
+            Console.WriteLine(
+                "Welcome to Text Flappy Bird\n"+
+                "Here you must make sure you fly through a series of pipes without being hit\n"+
+                "The controls are simple:\n"+
+                "'W' to Fly up a random number from 10 - 30\n"+
+                "'S' to Fall down a random number from 10 - 30\n"+
+                "'D' to Glide, falling by a random number from 0 - 15\n"+
+                "'Q' to Quit\n"+
+                "If you get hit once, you lose!\n\n"
+
+            );
         }
 
         static int RandomInt(int min = 0, int max = 30)
@@ -80,7 +88,7 @@ namespace ExampleGameMethods
             int randomNumber;
             Random rndNum = new Random();
             randomNumber = rndNum.Next(min, max);
-            Console.WriteLine(randomNumber);
+            // Console.WriteLine(randomNumber);
 
             return randomNumber;
         }
@@ -90,40 +98,42 @@ namespace ExampleGameMethods
             //check if player height is within pipe minimum and gap
             int newPipe = pipes[score+1];
             if (height > newPipe && height < (newPipe+gap)) {
-                Console.WriteLine("yes");
+                Console.WriteLine("You made it through the pipe!");
                 return true;
             } else {
-                Console.WriteLine("no");
+                Console.WriteLine("You hit the pipe! Game Over");
                 return false;
             }
         }
 
         static void Main(string[] args)
         {
-            int height = 15;
+            int height = 50;
             int score = 0;
             int gap = 60;
             int turn = 0;
-            string player = "";
+            bool win = true;
             int[] pipes = {0, RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70), RandomInt(20,70)};
-            Console.WriteLine(pipes);
+
+            // for (int i = 0; i < pipes.Length; i++) {
+            //     Console.WriteLine(pipes[i]);
+            // }
+            Instructions();
             
             while (true) {
-                char key = Char.ToLower(Console.ReadKey(true).KeyChar);
-                if (key == 'w') {
-                    height = Move(height, 1);
-                    Console.WriteLine(height);
-                    CheckPipe(pipes,score,height,gap);
-                } else if (key == 's') {
-                    height = Move(height, 0);
-                    Console.WriteLine(height);
-                    CheckPipe(pipes,score,height,gap);
-                } else if (key == 'd') {
-                    height = Move(height, 2);
-                    Console.WriteLine(height);
-                    CheckPipe(pipes,score,height,gap);
-                } else if (key == 'q') {
-                    break;
+                
+                if (turn == 0) {
+                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]+gap} to {pipes[score+1]}");
+                } else if (turn == 3) {
+                    win = CheckPipe(pipes,score,height,gap);
+                    if (win == false) {
+                        Console.WriteLine($"Your final score is {score}");
+                        break;
+                    } else {
+                        score++;
+                    }
+                    turn = 0;
+                    Console.WriteLine($"The next pipe has a gap of {pipes[score+1]+gap} to {pipes[score+1]}");
                 }
 
                 if (score > 10) {
@@ -131,6 +141,30 @@ namespace ExampleGameMethods
                 } else if (score > 20) {
                     gap = 20;
                 }
+
+                
+
+                char key = Char.ToLower(Console.ReadKey(true).KeyChar);
+                if (key == 'w') {
+                    height = Move(height, 1);
+                    Console.WriteLine($"Your current height is {height}");
+                    // CheckPipe(pipes,score,height,gap);
+                    turn++;
+                } else if (key == 's') {
+                    height = Move(height, 0);
+                    Console.WriteLine($"Your current height is {height}");
+                    // CheckPipe(pipes,score,height,gap);
+                    turn++;
+                } else if (key == 'd') {
+                    height = Move(height, 2);
+                    Console.WriteLine($"Your current height is {height}");
+                    // CheckPipe(pipes,score,height,gap);
+                    turn++;
+                } else if (key == 'q') {
+                    break;
+                }
+
+
 
             }
 
