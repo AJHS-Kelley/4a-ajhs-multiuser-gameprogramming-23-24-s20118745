@@ -26,3 +26,33 @@ namespace ReviewProject
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// IMPLICIT -- happens automatically when going smaller -> larger
+//char -> int -> long -> float -> double
+
+int myInt = 9;
+double exampleDouble = 9.87657762742;
+int myInt = (int) myDouble;
+
+// Conversation Methods
+
+
+
+
+
+
+
+
