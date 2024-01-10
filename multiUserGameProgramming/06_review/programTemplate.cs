@@ -56,3 +56,38 @@ int myInt = (int) myDouble;
 
 
 
+
+
+        // Switch Statement
+
+
+
+
+
+
+
+
+
+
+
+                    break;
+                case 4:
+                    Console.WriteLine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
